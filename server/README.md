@@ -2,6 +2,23 @@
 
 A place for expecting fathers.
 
+## MERN STACK
+
+## Getting Started
+
+Make sure that you have Git, Node.js and MongoDB installed. Then in your terminal run the following:
+
+```sh
+$ git clone git@github.com:T-Wesst/dad-a-base.git 
+$ mongod
+$ npm run install-all
+$ npm run dev
+```
+
+## [Client]()
+
+## [Server]()
+
 # API ROUTES
 
 METHOD | ROUTE | RESPONSE
