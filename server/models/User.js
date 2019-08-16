@@ -2,9 +2,9 @@ const { Schema, model } = require('mongoose');
 const { checkPassword, hashPassword } = require('../utilities/passwordService');
 
 const UserSchema = new Schema({
-  username: String,
-  email: String,
-  password: String
+  username: { type: String, required: true, unique: true },
+  email: { type: String, required: true, unique: true },
+  password: { type: String, required: true, unique: true }
 });
 
 UserSchema.pre('save', async function(next) {
