@@ -39,7 +39,7 @@ export default class App extends Component {
       <>
         <Router>
           <div className="App">
-            {/* <Header message={this.state.message} /> */}
+            <Header message={this.state.message} />
             <div className="container">
               <Switch>
                 <Route exact path="/" component={Landing} />
