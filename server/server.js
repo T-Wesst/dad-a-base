@@ -18,5 +18,8 @@ config({ debug: process.env.DEBUG });
 app.use(cookieParser(process.env.SECRET));
 // ROUTES
 app.use('/api/users', userRoutes);
+app.get('*', (req, res) =>
+  res.status(404).json({ message: 'Sorry that page does not exist' })
+);
 
 app.listen(PORT, () => console.log(`App running on http://localhost:${PORT}`));

@@ -17,7 +17,7 @@ const login = async (req, res) => {
         let token = await createToken(user);
         res
           .cookie('token', token, cookieOptions)
-          .redirect('/api/users/authorized');
+          .json({ message: 'Successfully logged in' });
       } else {
         res.send({
           message: 'Your username or password was incorrect, please try again',
@@ -25,17 +25,10 @@ const login = async (req, res) => {
         });
       }
     } catch (err) {
-      if (err) throw err;
+      if (err) res.send(err);
     }
   } catch (err) {
-    if (err) throw err;
-  }
-};
-const logout = async (req, res) => {
-  try {
-    res.clearCookie('token').redirect('/api/users/visitor');
-  } catch (err) {
-    if (err) throw err;
+    if (err) res.send(err);
   }
 };
 const signup = async (req, res) => {
@@ -44,35 +37,40 @@ const signup = async (req, res) => {
     let token = await createToken(user);
     res
       .cookie('token', token, cookieOptions)
-      .status(200)
-      .redirect('/api/users/authorized');
+      .json({ message: 'successfully registered' });
   } catch (err) {
     if (err) throw err;
   }
 };
-
-const visitor = async (req, res) =>
-  res.send({ message: 'Welcome to Dad-A-Base' });
-
 const cookieCheck = async (req, res) => {
-  const { token } = req.signedCookies;
-  if (token) {
-    try {
-      let {
-        user: { _id, username, email, password }
-      } = await isValidToken(token);
+  if (Object.keys(req.signedCookies).length === 0) {
+    res.status(401).json({ message: 'You are not authorized to do that' });
+  } else {
+    const { token } = req.signedCookies;
+    if (token) {
       try {
-        let user = await User.findOne({ username, password, _id, email });
-        res.send({ email: user.email, username: user.username });
+        let {
+          user: { _id, username, email, password }
+        } = await isValidToken(token);
+        try {
+          let user = await User.findOne({ username, password, _id, email });
+          res.send({
+            email: user.email,
+            username: user.username,
+            id: user._id
+          });
+        } catch (err) {
+          if (err) throw err;
+        }
       } catch (err) {
         if (err) throw err;
       }
-    } catch (err) {
-      if (err) throw err;
+    } else {
+      res.send({ message: 'Cookie has expired, please log in.' });
     }
-  } else {
-    res.send({ message: 'Cookie has expired, please log in.' });
   }
 };
+const logout = async (req, res) => await res.clearCookie('token').json({ message: 'You have successfully logged out' });
+const visitor = async (req, res) => await res.send({ message: 'Welcome to Dad-A-Base' });
 
 module.exports = { login, signup, logout, cookieCheck, visitor };
