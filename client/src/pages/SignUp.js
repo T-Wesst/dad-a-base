@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { withRouter } from 'react-router-dom';
 import axios from 'axios';
 
 export default class SignUp extends Component {
@@ -16,6 +17,7 @@ export default class SignUp extends Component {
   handleSubmit = event => {
     const { username, email, password } = this.state;
     event.preventDefault();
+    this.props.history.push('/dashboard');
     this.setState({ username, email, password });
     axios
       .post('/api/users/signup', { username, password, email })

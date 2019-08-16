@@ -15,6 +15,7 @@ export default class Login extends Component {
   handleSubmit = event => {
     const { username, password } = this.state;
     event.preventDefault();
+    this.props.history.push('/dashboard');
     this.setState({ username, password });
     axios
       .post('/api/users/login', { username, password })
