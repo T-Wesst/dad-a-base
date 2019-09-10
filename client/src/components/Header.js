@@ -5,7 +5,7 @@ export default function Header(props) {
   return (
     <div>
       <ul>
-        <Link to="/">Home</Link>
+        <Link to="/dashboard">Home</Link>
         <Link to="/login">Login</Link>
         <Link to="/signup">Signup</Link>
         <Link to="/logout">Logout</Link>
