@@ -11,18 +11,16 @@ const cookieOptions = {
 const login = async (req, res) => {
   try {
     let user = await User.findOne({ username: req.body.username });
+    if (!user) {
+      res.send(404);
+    }
     try {
       let isMatch = await user.comparePassword(req.body.password);
       if (isMatch) {
         let token = await createToken(user);
-        res
-          .cookie('token', token, cookieOptions)
-          .json({ message: 'Successfully logged in' });
+        res.cookie('token', token, cookieOptions).json(200);
       } else {
-        res.send({
-          message: 'Your username or password was incorrect, please try again',
-          error: 404
-        });
+        res.send(404);
       }
     } catch (err) {
       if (err) res.send(err);
@@ -70,7 +68,11 @@ const cookieCheck = async (req, res) => {
     }
   }
 };
-const logout = async (req, res) => await res.clearCookie('token').json({ message: 'You have successfully logged out' });
-const visitor = async (req, res) => await res.send({ message: 'Welcome to Dad-A-Base' });
+const logout = async (req, res) =>
+  await res
+    .clearCookie('token')
+    .json({ message: 'You have successfully logged out' });
+const visitor = async (req, res) =>
+  await res.send({ message: 'Welcome to Dad-A-Base' });
 
 module.exports = { login, signup, logout, cookieCheck, visitor };

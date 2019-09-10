@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
-import Login from './pages/Login';
 import Landing from './pages/Landing';
 import NotFound from './pages/NotFound';
 import Logout from './pages/Logout';
@@ -11,46 +10,54 @@ import axios from 'axios';
 export default class App extends Component {
   state = {
     message: null,
-    error: null
+    username: '',
+    password: '',
+    error: null,
+    isAuth: false
   };
-  componentDidMount() {
+
+  handleOnChange = event => {
+    this.setState({ [event.target.id]: event.target.value });
+  };
+  handleSubmit = event => {
+    const { username, password } = this.state;
+    event.preventDefault();
     axios
-      .get('/api/users/visitor')
+      .post('/api/users/login', { username, password })
       .then(response => {
-        this.setState({ message: response.data.message });
+        this.setState({ isAuth: true, message: 'Successfully logged in' });
       })
       .catch(error => {
-        if (error) {
-          console.log(error);
-          this.setState({ error: error.message });
-        }
+        if (error)
+          this.setState({
+            error,
+            message: 'Sorry the username or password is incorrect'
+          });
+        alert(this.state.message);
       });
-    // axios
-    //   .get('/api/users/authorized')
-    //   .then(res => {
-    //     console.log(res);
-    //   })
-    //   .catch(err => {
-    //     this.setState({ error: err.response.data.message });
-    //   });
-  }
+  };
+
   render() {
     return (
       <>
         <Router>
-          <div className="App">
-            <Header message={this.state.message} />
-            <div className="container">
-              <Switch>
-                <Route exact path="/" component={Landing} />
-                <Route exact path="/login" component={Login} />
-                <Route exact path="/signup" component={SignUp} />
-                <Route exact path="/logout" component={Logout} />
-                <Route exact path="/dashboard" component={Dashboard} />
-                <Route component={NotFound} />
-              </Switch>
-            </div>
-          </div>
+          {this.state.isAuth ? <Header message={this.state.message} /> : ''}
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={() => (
+                <Landing
+                  handleSubmit={this.handleSubmit}
+                  handleChange={this.handleOnChange}
+                />
+              )}
+            />
+            <Route exact path="/signup" component={SignUp} />
+            <Route exact path="/logout" component={Logout} />
+            <Route exact path="/dashboard" component={Dashboard} />
+            <Route component={NotFound} />
+          </Switch>
         </Router>
       </>
     );
