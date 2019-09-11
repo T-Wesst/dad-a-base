@@ -58,7 +58,7 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Landing(props) {
-  const { handleSubmit, handleChange, username, password } = props;
+  const { handleSubmit, handleChange } = props;
   const classes = useStyles();
   return (
     <Grid container component="main" className={classes.root}>
@@ -103,7 +103,6 @@ export default function Landing(props) {
               autoComplete="username"
               autoFocus
               type="text"
-              value={username}
               onChange={handleChange}
             />
             <TextField
@@ -111,7 +110,6 @@ export default function Landing(props) {
               margin="normal"
               required
               fullWidth
-              value={password}
               onChange={handleChange}
               name="password"
               label="Password"
