@@ -1,9 +1,10 @@
 import React from 'react';
+import RecentFeed from '../components/RecentFeed';
 
-export default function Dashboard() {
+export default function Dashboard(props) {
   return (
     <div>
-      <h1>Dashboard</h1>
+      <RecentFeed />
     </div>
   );
 }
