@@ -25,13 +25,15 @@ export default class App extends Component {
     axios
       .post('/api/users/login', { username, password })
       .then(response => {
-        this.setState({ isAuth: true, message: 'Successfully logged in' });
+        let isAuth = response.data.status === 'OK' ? true : false;
+        this.setState({ isAuth, message: response.data.message, error: null });
+        alert(this.state.message);
       })
       .catch(error => {
         if (error)
           this.setState({
             error,
-            message: 'Sorry the username or password is incorrect'
+            message: error.response.data.message
           });
         alert(this.state.message);
       });

@@ -12,15 +12,23 @@ const login = async (req, res) => {
   try {
     let user = await User.findOne({ username: req.body.username });
     if (!user) {
-      res.send(404);
+      res.status(401).json({
+        status: 'ERROR',
+        message: 'sorry the username or password is incorrect'
+      });
     }
     try {
       let isMatch = await user.comparePassword(req.body.password);
       if (isMatch) {
         let token = await createToken(user);
-        res.cookie('token', token, cookieOptions).json(200);
+        res
+          .cookie('token', token, cookieOptions)
+          .json({ status: 'OK', message: 'Successfully logged in' });
       } else {
-        res.send(404);
+        res.status(401).json({
+          status: 'ERROR',
+          message: 'sorry the username or password is incorrect'
+        });
       }
     } catch (err) {
       if (err) res.send(err);
