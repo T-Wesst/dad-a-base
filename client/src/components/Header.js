@@ -1,15 +1,18 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { AppBar, Toolbar, Typography } from '@material-ui/core';
+import NavBar from './NavBar';
 
 export default function Header(props) {
   return (
     <div>
-      <ul>
-        <Link to="/dashboard">Home</Link>
-        <Link to="/login">Login</Link>
-        <Link to="/signup">Signup</Link>
-        <Link to="/logout">Logout</Link>
-      </ul>
+      <AppBar color="primary" position="static">
+        <Toolbar>
+          <Typography variant="title" color="inherit">
+            Dad-A-Base
+          </Typography>
+          <NavBar />
+        </Toolbar>
+      </AppBar>
     </div>
   );
 }

@@ -19,9 +19,8 @@ export default class App extends Component {
   handleOnChange = event => {
     this.setState({ [event.target.id]: event.target.value });
   };
-  handleSubmit = event => {
+  handleLogin = () => {
     const { username, password } = this.state;
-    event.preventDefault();
     axios
       .post('/api/users/login', { username, password })
       .then(response => {
@@ -31,12 +30,13 @@ export default class App extends Component {
       })
       .catch(error => {
         if (error)
-          this.setState({
-            error,
-            message: error.response.data.message
-          });
+          this.setState({ error, message: error.response.data.message });
         alert(this.state.message);
       });
+  };
+  handleSubmit = event => {
+    event.preventDefault();
+    this.handleLogin();
   };
 
   render() {
@@ -56,8 +56,8 @@ export default class App extends Component {
               )}
             />
             <Route exact path="/signup" component={SignUp} />
-            <Route exact path="/logout" component={Logout} />
             <Route exact path="/dashboard" component={Dashboard} />
+            <Route exact path="/logout" component={Logout} />
             <Route component={NotFound} />
           </Switch>
         </Router>
