@@ -1,7 +1,7 @@
 import React from 'react';
 import { List, ListItemText, ListItem } from '@material-ui/core';
 import TypoGraphy from '@material-ui/core/Typography';
-import { Home, Book, AccountBox } from '@material-ui/icons';
+import { Home, LibraryBooks, NoMeetingRoom, MeetingRoom } from '@material-ui/icons';
 
 function NavBar(props) {
   return (
@@ -12,16 +12,19 @@ function NavBar(props) {
             Home <Home />
           </TypoGraphy>
         </ListItemText>
-
         <ListItemText inset>
           <TypoGraphy color="inherit" variant="title">
-            Posts <Book />
+            Posts <LibraryBooks />
           </TypoGraphy>
         </ListItemText>
-
         <ListItemText inset>
           <TypoGraphy color="inherit" variant="title">
-            Contact <AccountBox />
+            Chat <MeetingRoom />
+          </TypoGraphy>
+        </ListItemText>
+        <ListItemText inset>
+          <TypoGraphy color="inherit" variant="title">
+            Logout <NoMeetingRoom />
           </TypoGraphy>
         </ListItemText>
       </ListItem>

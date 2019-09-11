@@ -1,6 +1,7 @@
 import React from 'react';
 import { AppBar, Toolbar, Typography } from '@material-ui/core';
 import NavBar from './NavBar';
+import { Cloud } from '@material-ui/icons';
 
 export default function Header(props) {
   return (
@@ -8,7 +9,7 @@ export default function Header(props) {
       <AppBar color="primary" position="static">
         <Toolbar>
           <Typography variant="title" color="inherit">
-            Dad-A-Base
+            <Cloud /> Dad-A-Base
           </Typography>
           <NavBar />
         </Toolbar>
