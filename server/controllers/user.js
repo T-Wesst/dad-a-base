@@ -43,7 +43,7 @@ const signup = async (req, res) => {
     let token = await createToken(user);
     res
       .cookie('token', token, cookieOptions)
-      .json({ message: 'successfully registered' });
+      .json({ status: 'OK', message: 'successfully registered' });
   } catch (err) {
     if (err) throw err;
   }
