@@ -1,14 +1,7 @@
 import React from 'react';
+import Login from './Login';
 import { makeStyles } from '@material-ui/core/styles';
-import {
-  Grid,
-  Paper,
-  Typography,
-  Link,
-  Button,
-  TextField
-} from '@material-ui/core';
-
+import { Grid, Paper, Typography } from '@material-ui/core';
 const useStyles = makeStyles(theme => ({
   root: {
     minHeight: '100vh',
@@ -58,7 +51,6 @@ const useStyles = makeStyles(theme => ({
 }));
 
 export default function Landing(props) {
-  const { handleSubmit, handleChange } = props;
   const classes = useStyles();
   return (
     <Grid container component="main" className={classes.root}>
@@ -91,48 +83,7 @@ export default function Landing(props) {
           <Typography component="h1" variant="h5">
             Sign in
           </Typography>
-          <form onSubmit={handleSubmit}>
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              id="username"
-              label="User Name"
-              name="username"
-              autoComplete="username"
-              autoFocus
-              type="text"
-              onChange={handleChange}
-            />
-            <TextField
-              variant="outlined"
-              margin="normal"
-              required
-              fullWidth
-              onChange={handleChange}
-              name="password"
-              label="Password"
-              type="password"
-              id="password"
-              autoComplete="current-password"
-            />
-            <Button
-              type="submit"
-              fullWidth
-              variant="contained"
-              color="primary"
-              className={classes.submit}
-            >
-              Sign In
-            </Button>
-            <Grid container>
-              <Grid item xs></Grid>
-              <Grid item>
-                <Link href="/signup">{"Don't have an account? Sign Up"}</Link>
-              </Grid>
-            </Grid>
-          </form>
+          <Login {...props} />
         </div>
       </Grid>
     </Grid>
