@@ -8,7 +8,7 @@ export default function Header(props) {
     <div>
       <AppBar color="primary" position="static">
         <Toolbar>
-          <Typography variant="title" color="inherit">
+          <Typography variant="h6" color="inherit">
             <Cloud /> Dad-A-Base
           </Typography>
           <NavBar />

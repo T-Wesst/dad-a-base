@@ -49,7 +49,7 @@ const posts = [
 function RecentFeed(props) {
   return (
     <div style={{ marginTop: 20, padding: 30 }}>
-      <Grid container spacing={40} justify="center">
+      <Grid container spacing={10} justify="center">
         {posts.map(post => (
           <Grid item key={post.title}>
             <Card>
